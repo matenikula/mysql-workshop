@@ -27,12 +27,30 @@ Számítógépes hálózatok esetében egy port a hálózati kommunikáció vég
 - A portok logikai konstrukciók, melyek lehetővé teszik, hogy a számítógépen futó alkalmazások a beérkező csomagokból csak a nekik szólót kapják meg
 - A portokat számokkal azonosítjuk
 - A webalkalmazásokat a szerver általában a 80-as porton teszi elérhetővé
+- Csak a `nyitott` portok érhetőek el hálózati kapcsolaton keresztül. 
+- A tesztelendő alkalmazás mögött lévő adatbázis a 3306-os port számon kommunikál, ami főleg biztonsági okok miatt `zárva` van a hálózat felé. 
 
 ### SSH
 
-Az alkalmazás mögött lévő adatbázis egy meghatározott port-számon kommunikál, mely a MySQL esetében konvenció szerint: 3306. Ez a port nem elérhető kívűlről. így szükség van egy biztonságos csatornára
+Mivel a 3306-os port nem érhető el kívülről, ezért szükség van egy módszerre, amivel `biztonságos csatornán`, távolról be tudunk jelentkezni a szerver környezetbe. Ebben segít az `SSH` (Secure Shell) protokoll, ami egy lokális és egy távoli számítógép közötti biztonságos csatorna kiépítését teszi lehetővé.
 
 ### Port forwarding
+
+### Windows 10 SSH Client
+
+A 2017-es Fall Creators Update előtt a Windows 10 nem rendelkezett beépített SSH klienssel. Olyan külső programok használatára volt szükség mint például a [PuTTY](https://www.putty.org/)
+
+A frissítés óta azonban szerencsére rendelkezésre áll a beépített kliens, amivel egyszerűen, a parancssorból tudunk SSH kapcsolatot létesíteni. Lássuk hogyan:
+
+1. SSH kliens ellenőrzése: Gépház -> Alkalmazások -> Opcionális szolgáltatások
+2. Windows PowerShell megnyitása
+3. Csatlakozás a távoli számítógépre, port forwardinggal együtt:
+
+```bash
+ssh -i path/to/key/2019augPrivateAWSKey.pem -L 3307:localhost:3306 ubuntu@example.progmasters.hu
+```
+
+
 
 ## MySQL
 
