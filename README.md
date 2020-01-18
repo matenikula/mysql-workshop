@@ -65,7 +65,8 @@ Egy relációs adatbázis egymással kapcsolatban álló adatok gyűjtménye, k�
 - Az elsődleges kulcs táblaszintű épséget biztosít, és segít a táblák összekapcsolásában.
 - Az adatbázis minden táblájának kell, hogy legyen elsődleges kulcsa
 
-__Persons__
+_Persons_
+
 ID (Elsődleges kulcs) | Name | Age 
 --- | --- | ---
 1 | Jóska | 23
@@ -75,7 +76,7 @@ ID (Elsődleges kulcs) | Name | Age
 
 - Egy tábla olyan mezője, amivel egy másik tábla elsődleges kulcsára hivatkozunk
 
-__Cars__
+_Cars_
 
 ID (Elsődleges kulcs) | OwnerID (Idegen kulcs) | Make | Model 
 --- | --- | --- | ---
