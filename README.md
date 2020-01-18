@@ -51,10 +51,55 @@ ssh -i path/to/key/2019augPrivateAWSKey.pem -L 3307:localhost:3306 ubuntu@exampl
 ```
 
 
-
 ## MySQL
 
+A MySQL a `relációs adatbázisok`, illetve a bennük tárolt adatok manipulálását lehetővé tévő rendszer. 
+
+### Mi az a relációs adatbázis ? 
+
+Egy relációs adatbázis egymással kapcsolatban álló adatok gyűjtménye, két dimenziós táblákba szervezve. Egy-egy tábla hasonló egy Excel táblázathoz, meghatározott számú, megnevezett oszlopokkal, illetve szerkezeti elemekkel: _rekord_ , _mező_ , _kulcsok_
+
+#### Elsődleges kulcs
+
+- Az elsődleges kulcs egy olyan mező, amely egyedi módon azonosítja a rekordokat a táblán belül.
+- Az elsődleges kulcs táblaszintű épséget biztosít, és segít a táblák összekapcsolásában.
+- Az adatbázis minden táblájának kell, hogy legyen elsődleges kulcsa
+
+__Persons__
+ID (Elsődleges kulcs) | Name | Age 
+--- | --- | ---
+1 | Jóska | 23
+2 | Pista | 32
+
+#### Idegen kulcs
+
+- Egy tábla olyan mezője, amivel egy másik tábla elsődleges kulcsára hivatkozunk
+
+__Cars__
+
+ID (Elsődleges kulcs) | OwnerID (Idegen kulcs) | Make | Model 
+--- | --- | --- | ---
+99 | 1 | Ford |Focus
+34 | 2 | Tesla | Model S 
+
 ### MySQL Workbench
+
+A MySQL Workbench egy grafikus adatbázis tervező és kezelő eszköz. Főbb szolgáltatások: 
+
+- Adatbázis kapcsolat és instance menedzsment
+- SQL szerkesztő
+- Adat modellezés
+- Teljesítmény monitorozás
+
+A parancssorból történő adatbázis manipulációnál kényelmesebb, szofisztikáltabb eszköz. Ezt fogjuk használni.
+
+#### Standalone telepítés
+
+[Ezen a linken](https://dev.mysql.com/downloads/workbench/5.2.html)
+
+#### Funckiók, sql script 
+
+
 
 
 
