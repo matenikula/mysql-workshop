@@ -87,17 +87,34 @@ ID (Elsődleges kulcs) | OwnerID (Idegen kulcs) | Make | Model
 
 A MySQL számos SQL adat típust támogat. Az alábbi, kategóriák szerinti bontás csak a fontossabb típusokat tartalmazza.
 
-#### Numerikus
+#### NUMERIKUS
 
 - __BOOL, BOOLEAN__: A 0 érték `hamis`, minden nem nulla érték `igaz`.
 - __INT, INTEGER__: 32 bites szám érték. Tartomány: `- 2147483648-tól 2147483647-ig`
 - __BIGINT__: 64 bites szám érték. Tartomány: `- 9223372036854775808-tól 9223372036854775807-ig`
 - __DEC, DECIMAL__: `Törtszámok` tárolására használt typus. Maximum 65 számjegyet képes kezelni, melyből maximum 30 lehet a tizdespont után.
 
-#### Dátum és idő
+#### DÁTUM ÉS IDŐ
 
+- __DATE__:  Dátum érték `1000-01-01` és `9999-12-31` között.
+- __TIME__: Idő érték, __hh:mm:ss[.fraction]__ formátumban. (Törtmásodperceket maximum 6 tizedesjegy pontosságig lehet tárolni.)
+  - Az értéktartomány `-838:59:59` és `838:59:59` között mozog, ugyanis az idő érték kifejezhet eltelt időt, vagy idő intervallumot is. 
+- __DATETIME__: Dátum és idő értékek együtt, `1000-01-01 00:00:00.000000` és `9999-12-31 23:59:59.999999` között.
+  - Új érték bevitelekor a dátum és idő között a szóköz helyett egy T betű is elfogadott: `'2012-12-31T11:30:45'`
+ 
+> __Érdemes tudni__
+> - A dátum részt mindíg __év-hónap-nap__ (YYYY-mm-dd) formátumban kell megadni. 
+> - Numerikus környezetben a dátum és idő étékek szám értékké konvertálódnak. 
 
 ####  String
+
+- __CHAR__: Maximum __255__ karakterből álló `karakterlánc`  Alapbeállításként az `utf8` karakterkészletet használja.
+- __VARCHAR__: Szintén `karakterlánc` tárolására alkalmas. Szintén az `utf8` készletet használja. Alapesetben __maximum 21844__ karaktert képes tárolni. 
+
+> __Hasznos funkciók__
+> - LOWER() - a kapott stringet kisbetűssé alakítja
+> - UPPER() - a kapott stringet nagybetűssé alakítja
+> - CONCAT() - a kapott stingeket összefűzi
 
 
 ### MySQL Workbench
