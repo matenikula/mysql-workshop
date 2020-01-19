@@ -6,11 +6,11 @@ Egy web alkalmazás esetén szükség van egy `futtató környezetre`, mely bizt
 
 ### AWS
 
-A tesztelendő alkalmazás az `Amazon Web Services` által biztosított felhő alapu környezetben fut. Ez egy virtuális számítógép, mely biztosítja hogy az app számára folyamatosan rendelkezésre állnak a szükséges erőforrások és a hálózati kapcsolat. 
+A tesztelendő alkalmazás az `Amazon Web Services` által biztosított felhő alapu környezetben fut. Ez egy virtuális számítógép, mely biztosítja az app számára a folyamatos működéshez szükséges erőforrásokat és a hálózati kapcsolatot. 
 
 ## Hálózati alapfogalmak 
 
-Az AWS környezetében futó alkalmazás számára elengedhetetlen a kapcsolat az internettel, hiszen a hálózaton keresztül, a megfelelő IP cím és port szám segítségével tudjuk azt elérni a böngészőből. 
+Az AWS környezetében futó alkalmazás számára elengedhetetlen a kapcsolat az internettel, hiszen a hálózaton keresztül, a megfelelő IP cím és port szám segítségével tudjuk azt elérni és interakcióba lépni vele. 
 
 ### IP cím
 
@@ -22,13 +22,13 @@ Az IP-cím (Internet Protocol-cím) egy egyedi `hálózati azonosító`, amelyet
 
 ### Port
 
-Számítógépes hálózatok esetében egy port a hálózati kommunikáció végpontja, egy `bemeneti-kimeneti kapu` melyen keresztül a adatátvitel történhet.
+Számítógépes hálózatok esetében egy port a hálózati kommunikáció egy végpontja, egy `bemeneti-kimeneti kapu` melyen keresztül a adatátvitel történhet.
 
 - A portok logikai konstrukciók, melyek lehetővé teszik, hogy a számítógépen futó alkalmazások a beérkező csomagokból csak a nekik szólót kapják meg
 - A portokat számokkal azonosítjuk
-- A webalkalmazásokat a szerver általában a 80-as porton teszi elérhetővé
+- A webalkalmazásokat a szerver általában a 80-as porton teszi elérhetővé.
 - Csak a `nyitott` portok érhetőek el hálózati kapcsolaton keresztül. 
-- A tesztelendő alkalmazás mögött lévő adatbázis a 3306-os port számon kommunikál, ami főleg biztonsági okok miatt `zárva` van a hálózat felé. 
+- A tesztelendő alkalmazás mögött lévő adatbázis a 3306-os port számon kommunikál, ami főleg biztonsági okok miatt egy`zárt` port, azaz hálózati kapcsolaton keresztül közvetlenül nem elérhető.  
 
 ### SSH
 
@@ -40,11 +40,11 @@ Mivel a 3306-os port nem érhető el kívülről, ezért szükség van egy móds
 
 A 2017-es Fall Creators Update előtt a Windows 10 nem rendelkezett beépített SSH klienssel. Olyan külső programok használatára volt szükség mint például a [PuTTY](https://www.putty.org/)
 
-A frissítés óta azonban szerencsére rendelkezésre áll a beépített kliens, amivel egyszerűen, a parancssorból tudunk SSH kapcsolatot létesíteni. Lássuk hogyan:
+A frissítés óta azonban szerencsére rendelkezésre áll a beépített kliens, amivel egyszerűen, a parancssorból tudunk SSH kapcsolatot létesíteni, port forwardinggal együtt. Lássuk hogyan:
 
 1. SSH kliens ellenőrzése: Gépház -> Alkalmazások -> Opcionális szolgáltatások
 2. Windows PowerShell megnyitása
-3. Csatlakozás a távoli számítógépre, port forwardinggal együtt:
+3. Csatlakozás a távoli számítógépre:
 
 ```bash
 ssh -i path/to/key/2019augPrivateAWSKey.pem -L 3307:localhost:3306 ubuntu@example.progmasters.hu
@@ -56,13 +56,13 @@ A MySQL a `relációs adatbázisok`, illetve a bennük tárolt adatok manipulál
 
 ### Mi az a relációs adatbázis ? 
 
-Egy relációs adatbázis egymással kapcsolatban álló adatok gyűjtménye, két dimenziós táblákba szervezve. Egy-egy tábla hasonló egy Excel táblázathoz, meghatározott számú, megnevezett oszlopokkal, illetve szerkezeti elemekkel: _rekord_ , _mező_ , _kulcsok_
+Egy relációs adatbázis egymással kapcsolatban álló adatok gyűjtménye, két dimenziós táblákba szervezve. Egy-egy tábla hasonló egy Excel táblázathoz, meghatározott számú, megnevezett oszlopokkal, valamint további szerkezeti elemekkel: _rekord_ , _mező_ , _kulcsok_
 
 #### Elsődleges kulcs
 
 - Az elsődleges kulcs egy olyan mező, amely egyedi módon azonosítja a rekordokat a táblán belül.
 - Az elsődleges kulcs táblaszintű épséget biztosít, és segít a táblák összekapcsolásában.
-- Az adatbázis minden táblájának kell, hogy legyen elsődleges kulcsa
+- Az adatbázis minden táblájának kötelező elsődleges kulccsal rendelkeznie.
 
 _Persons_
 
@@ -74,6 +74,7 @@ ID (Elsődleges kulcs) | Name | Age
 #### Idegen kulcs
 
 - Egy tábla olyan mezője, amivel egy másik tábla elsődleges kulcsára hivatkozunk
+- Az idegen kulcsok segítségével tudunk táblákat összekpacsolni (__join__)
 
 _Cars_
 
@@ -83,6 +84,21 @@ ID (Elsődleges kulcs) | OwnerID (Idegen kulcs) | Make | Model
 34 | 2 | Tesla | Model S
 
 ### Adat típusok - *__TODO__*
+
+A MySQL számos SQL adat típust támogat. Az alábbi, kategóriák szerinti bontás csak a fontossabb típusokat tartalmazza.
+
+#### Numerikus
+
+- __BOOL, BOOLEAN__: A 0 érték `hamis`, minden nem nulla érték `igaz`.
+- __INT, INTEGER__: 32 bites szám érték. Tartomány: `- 2147483648-tól 2147483647-ig`
+- __BIGINT__: 64 bites szám érték. Tartomány: `- 9223372036854775808-tól 9223372036854775807-ig`
+- __DEC, DECIMAL__: `Törtszámok` tárolására használt typus. Maximum 65 számjegyet képes kezelni, melyből maximum 30 lehet a tizdespont után.
+
+#### Dátum és idő
+
+
+####  String
+
 
 ### MySQL Workbench
 
@@ -98,7 +114,6 @@ A parancssorból történő adatbázis manipulációnál kényelmesebb, szofiszt
 #### Standalone telepítés
 
 [Ezen a linken](https://dev.mysql.com/downloads/workbench/5.2.html)
-
 
 ### SQL nyelv
 
