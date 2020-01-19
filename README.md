@@ -34,7 +34,7 @@ Számítógépes hálózatok esetében egy port a hálózati kommunikáció vég
 
 Mivel a 3306-os port nem érhető el kívülről, ezért szükség van egy módszerre, amivel `biztonságos csatornán`, távolról be tudunk jelentkezni a szerver környezetbe. Ebben segít az `SSH` (Secure Shell) protokoll, ami egy lokális és egy távoli számítógép közötti biztonságos csatorna kiépítését teszi lehetővé.
 
-### Port forwarding
+### Port forwarding - *__TODO__*
 
 ### Windows 10 SSH Client
 
@@ -49,7 +49,6 @@ A frissítés óta azonban szerencsére rendelkezésre áll a beépített kliens
 ```bash
 ssh -i path/to/key/2019augPrivateAWSKey.pem -L 3307:localhost:3306 ubuntu@example.progmasters.hu
 ```
-
 
 ## MySQL
 
@@ -81,7 +80,9 @@ _Cars_
 ID (Elsődleges kulcs) | OwnerID (Idegen kulcs) | Make | Model 
 --- | --- | --- | ---
 99 | 1 | Ford |Focus
-34 | 2 | Tesla | Model S 
+34 | 2 | Tesla | Model S
+
+### Adat típusok - *__TODO__*
 
 ### MySQL Workbench
 
@@ -98,10 +99,15 @@ A parancssorból történő adatbázis manipulációnál kényelmesebb, szofiszt
 
 [Ezen a linken](https://dev.mysql.com/downloads/workbench/5.2.html)
 
-#### Funckiók, sql script 
 
+### SQL nyelv
 
+#### DDL - *__TODO__*
 
+show, use, create, drop database / table
 
+#### DML- *__TODO__*
+
+select, joins, functions (sum, min, max), isnert, update, delete
 
 
