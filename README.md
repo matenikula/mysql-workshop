@@ -83,7 +83,7 @@ ID (Elsődleges kulcs) | OwnerID (Idegen kulcs) | Make | Model
 99 | 1 | Ford |Focus
 34 | 2 | Tesla | Model S
 
-### Adat típusok - *__TODO__*
+### Adat típusok
 
 A MySQL számos SQL adat típust támogat. Az alábbi, kategóriák szerinti bontás csak a fontossabb típusokat tartalmazza.
 
@@ -109,7 +109,7 @@ A MySQL számos SQL adat típust támogat. Az alábbi, kategóriák szerinti bon
 ####  String
 
 - __CHAR__: Maximum __255__ karakterből álló `karakterlánc`  Alapbeállításként az `utf8` karakterkészletet használja.
-- __VARCHAR__: Szintén `karakterlánc` tárolására alkalmas. Szintén az `utf8` készletet használja. Alapesetben __maximum 21844__ karaktert képes tárolni. 
+- __VARCHAR__: Szintén `karakterlánc` tárolására alkalmas. Szintén az `utf8` készletet használja. Alapbeállításokkal az __elméleti maximum 21844__ karakter.
 
 > __Hasznos funkciók__
 > - LOWER() - a kapott stringet kisbetűssé alakítja
@@ -134,7 +134,43 @@ A parancssorból történő adatbázis manipulációnál kényelmesebb, szofiszt
 
 ### SQL nyelv
 
+Az SQL segítségével tudunk az adatbázisba teszt adatokat bevinni, illetve a tárolt adatok alapján lekérdezéseket végezni. Az SQL jelentése `Structured Query Language` azaz strukturált lekérdező nyelv. 
+
+> __Megjegyzés__
+> Napjainkra több különböző SQL _nylevjárás_ létezik, ugyanis a különböző adatbázis kezelők eltérő módon valósították meg a nyelvbe később beépült elemeket. 
+
+Az SQL nyelv parancsait két nagy kategóriára lehet osztani, melyek a `Data Definition Language` (azaz __DDL__), valamint a `Data Manipulation Language` (azaz __DML__).
+
 #### DDL - *__TODO__*
+
+A DDL utastások segítségével tudunk adatbázisokat, valamint táblákat lérehozni, módosítani illetve tötölni.
+
+Mielőtt hozzáfognánk új adatbázisokat, táblákat készíteni, a `show` parancs segítségével megvizsgálhatjuk a meglévő elemeket. 
+
+```sql
+SHOW DATABASES; -- eredmény: azon adatbázisok neve, melyeket jogunk van látni
+
+SHOW TABLES [FROM db_name]; -- eredmény: az aktuális adatbázis illetve az abban található táblák neve
+
+SHOW COLUMNS FROM table_name [FROM db_name]; -- eredmény: a megjelölt tábla adatmezőire vonatkozó információk.
+```
+```
++-------------+----------+------+-----+---------+----------------+
+| Field       | Type     | Null | Key | Default | Extra          |
++-------------+----------+------+-----+---------+----------------+
+| ID          | int(11)  | NO   | PRI | NULL    | auto_increment |
+| Name        | char(35) | NO   |     |         |                |
+| District    | char(20) | NO   |     |         |                |
+| Population  | int(11)  | NO   |     | 0       |                |
++-------------+----------+------+-----+---------+----------------+
+```
+
+> Az aktuálisan aktív adatbázis megváltoztatásához a `USE` parancsot használhatjuk: `USE db_name`
+
+
+##### __CREATE__
+
+
 
 show, use, create, drop database / table
 
