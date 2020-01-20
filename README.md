@@ -128,31 +128,29 @@ A MySQL Workbench egy grafikus adatbázis tervező és kezelő eszköz. Főbb sz
 
 A parancssorból történő adatbázis manipulációnál kényelmesebb, szofisztikáltabb eszköz. Ezt fogjuk használni.
 
-#### Standalone telepítés
-
-[Ezen a linken](https://dev.mysql.com/downloads/workbench/5.2.html)
+#### Standalone telepítés [Ezen a linken](https://dev.mysql.com/downloads/workbench/5.2.html)
 
 ### SQL nyelv
 
 Az SQL segítségével tudunk az adatbázisba teszt adatokat bevinni, illetve a tárolt adatok alapján lekérdezéseket végezni. Az SQL jelentése `Structured Query Language` azaz strukturált lekérdező nyelv. 
 
 > __Megjegyzés__
-> Napjainkra több különböző SQL _nylevjárás_ létezik, ugyanis a különböző adatbázis kezelők eltérő módon valósították meg a nyelvbe később beépült elemeket. 
+> Napjainban már több különböző SQL _nylevjárás_ létezik, ugyanis a különböző adatbázis kezelők eltérő módon valósították meg a nyelvbe később beépült elemeket. 
 
 Az SQL nyelv parancsait két nagy kategóriára lehet osztani, melyek a `Data Definition Language` (azaz __DDL__), valamint a `Data Manipulation Language` (azaz __DML__).
 
-#### DDL - *__TODO__*
+#### DDL
 
-A DDL utastások segítségével tudunk adatbázisokat, valamint táblákat lérehozni, módosítani illetve tötölni.
+A DDL utastások segítségével tudunk adatbázisokat, valamint táblákat lérehozni, módosítani illetve törölni, azonban mielőtt hozzáfognánk, a `show` parancs segítségével megvizsgálhatjuk a meglévő elemeket is.
 
-Mielőtt hozzáfognánk új adatbázisokat, táblákat készíteni, a `show` parancs segítségével megvizsgálhatjuk a meglévő elemeket. 
+##### __SHOW__
 
 ```sql
-SHOW DATABASES; -- eredmény: azon adatbázisok neve, melyeket jogunk van látni
+SHOW DATABASES; -- kiírja azon adatbázisok nevét, melyeket jogunk van látni
 
-SHOW TABLES [FROM db_name]; -- eredmény: az aktuális adatbázis illetve az abban található táblák neve
+SHOW TABLES [FROM db_name]; -- kiírja az aktuális adatbázis illetve az abban található táblák nevét
 
-SHOW COLUMNS FROM table_name [FROM db_name]; -- eredmény: a megjelölt tábla adatmezőire vonatkozó információk.
+SHOW COLUMNS FROM table_name [FROM db_name]; --  kírja a megjelölt tábla adatmezőire vonatkozó információkat.
 ```
 ```
 +-------------+----------+------+-----+---------+----------------+
@@ -170,11 +168,57 @@ SHOW COLUMNS FROM table_name [FROM db_name]; -- eredmény: a megjelölt tábla a
 
 ##### __CREATE__
 
+```sql
+CREATE DATABASE [IF NOT EXISTS] db_name; -- létrehoz egy adatbázist a megadott névvel (ha nem létezik). Ha vannak a néveben speciális karakterek, vagy számmal kezdődik, akkor idézőjelek között kell a nevet megadni.
 
+CREATE TABLE [IF NOT EXISTS] table_name (
+  column_name DATATYPE(argument) [NOT NULL] [OPTIONS],
+  other_column_name DATATYPE(argument) [NOT NULL] [OPTIONS],
+  ...
+  PRIMARY KEY (column name),
+  FOREIGN KEY (column_name) REFERENCES Other_table_name(column_name_in_other_table)  
+); -- 
 
-show, use, create, drop database / table
+-- Example:
+
+CREATE TABLE IF NOT EXISTS Orders (
+    OrderID int NOT NULL AUTO_INCREMENT,
+    OrderNumber int NOT NULL
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
+);
+```
+
+##### __ALTER__
+
+```sql
+ALTER TABLE table_name ADD (column_name DATATYPE(argument), other_column_name DATATYPE(argument)); -- adatmező hozzáadása 
+
+ALTER TABLE table_name CHANGE original_column_name new_column_name DATATYPE(argument) [OPTIONS]; --adatmező módosítása
+
+ALTER TABLE table_name DROP column_name; -- adatmező eltávolítása
+
+ALTER TABLE talbe_name RENAME TO new_table_name; -- tábla átnevezése
+```
+
+##### __DROP__
+
+```sql
+DROP DATABASE [IF EXISTS] db_name; --elveti az adatbázis összes tábláját, majd törli az adatbázist
+
+DROP TABLE [IF EXISTS] table_name; -- elveti az adott táblát, minden adatával együtt
+```
+
+##### __TRUNCATE__
+
+```sql
+TRUNCATE table_name; -- a tábla tartalmát törli, de a táblát nem
+```
 
 #### DML- *__TODO__*
+
+
 
 select, joins, functions (sum, min, max), isnert, update, delete
 
