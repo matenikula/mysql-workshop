@@ -229,11 +229,14 @@ INNER JOIN another_table ON mytable.id = another_table.id
 WHERE condition...;
 ```
 
-Az `INNER JOIN` kulcsszóval úgy kötünk össze két táblát, hogy a meghatározott oszlopok az üzleti entitás ugyan azon tulajdonságára mutatnak. 
+Az `INNER JOIN` kulcsszóval úgy kötünk össze két táblát, hogy a meghatározott oszlopok az üzleti entitás ugyan azon tulajdonságára mutatnak.  Inner JOIN használata esetén csak akkor kerül a találatok közé a rekord, ha mindkét táblában tartozik érték a JOIN alapját jelentő oszlophoz. 
+
+__További JOINOK__
+
+- `LEFT JOIN` (A tábla - B tábla összekapocslás esetén A táblából akkor is bekerülnek a rekordok, ha A táblában a JOIN alapját képező oszlopban nincs adat.)
+- `RIGHT JOIN` (A tábla - B tábla összekapocslás esetén B táblából akkor is bekerülnek a rekordok, ha B táblában a JOIN alapját képező oszlopban nincs adat.)
 
 Further reading on [joins](https://www.codeproject.com/Articles/33052/Visual-Representation-of-SQL-Joins) 
-
-functions (sum, min, max)
 
 #### DDL
 
