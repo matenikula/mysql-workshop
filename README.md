@@ -135,9 +135,105 @@ A parancssorból történő adatbázis manipulációnál kényelmesebb, szofiszt
 Az SQL segítségével tudunk az adatbázisba teszt adatokat bevinni, illetve a tárolt adatok alapján lekérdezéseket végezni. Az SQL jelentése `Structured Query Language` azaz strukturált lekérdező nyelv. 
 
 > __Megjegyzés__
-> Napjainban már több különböző SQL _nylevjárás_ létezik, ugyanis a különböző adatbázis kezelők eltérő módon valósították meg a nyelvbe később beépült elemeket. 
+> - Napjainban már több különböző SQL _nylevjárás_ létezik, ugyanis a különböző adatbázis kezelők eltérő módon valósították meg a nyelvbe később beépült elemeket. 
 
 Az SQL nyelv parancsait két nagy kategóriára lehet osztani, melyek a `Data Definition Language` (azaz __DDL__), valamint a `Data Manipulation Language` (azaz __DML__).
+
+#### DML
+
+A DML kategóriába tartozó utasítások segítségével tudjuk __maipuláni__ a tárolt adatokat, valamitn __lekérdezéseket__ végrehajtani. 
+
+##### __Manipuláció__
+
+###### __INSERT__
+
+```sql
+INSERT INTO table_name (column_1, column_2, column_3, ...)
+VALUES (value_1, value_2, value_3, ...); --új rekord beszúrása
+```
+
+###### __UPDATE__
+```sql
+UPDATE table_name SET column_1 = value, column_2 = value
+WHERE condition; -- Módosítja a megadott értékeket a megadott
+-- táblában, azon rekordokon, amelyekre igaz a WHERE utáni feltétel. Ha nincs condition, akkor minden rekord módosul.
+
+UPDATE Customers
+SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
+WHERE CustomerID = 1;
+```
+###### __DELETE__
+
+```sql
+DELETE FROM table_name
+WHERE condition; -- Törli azon rekordokoat(sorokat) a táblából, melyekre igaz a WHERE condition. Ha nincs cnodition akkor minden rekordot töröl. 
+```
+
+
+##### __Lekérdezés__
+
+Lekérdezések segítségével tudunk szűrni, rendszerezni, összefüggéseket keresni az adatbázis adatai között. A lekérdező parancsokat a `SELECT` kulcsszóval indítjuk. 
+
+###### __FROM__
+
+```sql
+SELECT * FROM table_name; --Egyszerű lekérdezés, visszaadja a megadott tábla összes rekodrját, az összes oszloppal
+
+SELECT column_1, column_2 FROM table_name; -- Visszaadja a megadott tábla összes rekordját, de csak a megadott oszlopnevekhez
+-- tartozó adatokkal
+```
+
+###### __WHERE__
+
+```sql
+SELECT * FROM table_name
+WHERE condition AND/OR another_condition...;
+```
+
+A `WHERE` kulcsszó segítségével szűkíteni a SELECT által visszaadott rekordok körét. Itt mindíg egy feltételt kell meghatározni, melyet minden egyes sorra megvizsgál az SQL és csak azokkal a rekordokkal tér vissza, ahol igaz a feltétel.
+Példa:
+
+```sql
+SELECT * FROM Customers
+WHERE Country='Mexico'; -- csak azon rekordok térnek vissza, ahol a Country értéke megegyezik a feltételben meghatározottal. 
+```
+
+A WHERE feltételben használható [operátorok](https://dev.mysql.com/doc/refman/8.0/en/non-typed-operators.html)
+
+> __Szöveges tartalom esetén:__
+> - A feltétel értékét idézőjelek között kell megadni!
+> - __%:__ nulla vagy több karaktert helyettesítő joker karakter (Csak LIKE és NOT LIKE operátorral működik)
+> - __-:__ egy karaktert helyettesítő joker karakter (Csak LIKE és NOT LIKE operátorral működik)ű
+
+
+###### __DISTINCT, ORDER BY, LIMIT, OFFSET__
+
+```sql
+SELECT DISTINCT column FROM table_name
+WHERE condition
+ORDER BY column_name ASC | DESC
+LIMIT number OFFSET number
+```
+- A `DISTINCT` kulcsszó a találtok közül csak az elsőt tartja meg, a további duplikált értékeket elveti.
+- Az `ORDER BY` segítségével megjelölhetünk egy (vagy több oszlopot) mely(ek) értékei alapján szeretnék sorbarendezni a találatokat
+- A `LIMIT` kulcsszó hatására a lekérdezés a megadott számú találattal tér vissza
+- Az `OFFSET` kulcsszó hatására a lekérdezés a megadott sorszámú elemtől kezdi a keresést
+
+###### __JOINS__
+
+A valóságban gyakran előfordul, hogy egy üzleti entitás tulajdonságait le kell bontani több táblára (főleg az adatismétlés elkerülése miatt). Ez pedig azt eredményezi, hogy több tábla adatait összekapcsolni képes lekérdezésekre van szükségünk. Ilyen lekérdezéseket a `JOIN` kulcszó segítségével tudunk írni.
+
+```sql
+SELECT column, another_table_column FROM mytable
+INNER JOIN another_table ON mytable.id = another_table.id
+WHERE condition...;
+```
+
+Az `INNER JOIN` kulcsszóval úgy kötünk össze két táblát, hogy a meghatározott oszlopok az üzleti entitás ugyan azon tulajdonságára mutatnak. 
+
+Further reading on [joins](https://www.codeproject.com/Articles/33052/Visual-Representation-of-SQL-Joins) 
+
+functions (sum, min, max)
 
 #### DDL
 
@@ -215,11 +311,5 @@ DROP TABLE [IF EXISTS] table_name; -- elveti az adott táblát, minden adatával
 ```sql
 TRUNCATE table_name; -- a tábla tartalmát törli, de a táblát nem
 ```
-
-#### DML- *__TODO__*
-
-
-
-select, joins, functions (sum, min, max), isnert, update, delete
 
 
